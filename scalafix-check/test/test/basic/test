@@ -1,0 +1,10 @@
+> plugins
+-> scalafixConfigRuleNamesSortCheck
+> scalafixCheckAll
+> scalafixCheckAllSyntactic
+$ copy-file A.scala.disabled A.scala
+> compile
+-> scalafixCheckAllSyntactic
+-$ must-mirror A.scala A.expect
+> scalafixAllSyntactic
+$ must-mirror A.scala A.expect
