@@ -24,4 +24,5 @@ jobs:
     - run: sbt -v
            "all scalafmtSbtCheck scalafmtCheckAll scalafixCheckAll scalafixConfigRuleNamesSortCheck"
            test
-           scripted
+           scalafix-check2_12/scripted
+           "scalafix-check3/scripted test/no-scalafix"

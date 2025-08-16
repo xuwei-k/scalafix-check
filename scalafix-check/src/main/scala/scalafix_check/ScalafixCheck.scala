@@ -4,6 +4,7 @@ import sbt._
 import scala.jdk.CollectionConverters._
 import scala.reflect.NameTransformer.MODULE_INSTANCE_NAME
 import scala.reflect.NameTransformer.MODULE_SUFFIX_STRING
+import scalafix_check.ScalafixCheckCompat._
 
 object ScalafixCheck extends AutoPlugin {
 
@@ -23,13 +24,13 @@ object ScalafixCheck extends AutoPlugin {
   private val scalafixAll = InputKey[Unit]("scalafixAll")
 
   override val projectSettings: Seq[Def.Setting[?]] = Def.settings(
-    scalafixCheckAll := scalafixAll.toTask(" --check").value,
-    scalafixCheckAllSyntactic := scalafixAll.toTask(" --check --syntactic").value,
-    scalafixAllSyntactic := scalafixAll.toTask(" --syntactic").value,
+    scalafixCheckAll := Def.uncached(scalafixAll.toTask(" --check").value),
+    scalafixCheckAllSyntactic := Def.uncached(scalafixAll.toTask(" --check --syntactic").value),
+    scalafixAllSyntactic := Def.uncached(scalafixAll.toTask(" --syntactic").value),
   )
 
   override val buildSettings: Seq[Def.Setting[?]] = Def.settings(
-    scalafixConfigRuleNamesSortCheck := {
+    scalafixConfigRuleNamesSortCheck := Def.uncached {
       val configFile = SettingKey[Option[File]]("scalafixConfig").?.value.flatten.getOrElse(file(".scalafix.conf"))
       val log = Keys.streams.value
       if (configFile.isFile) {
