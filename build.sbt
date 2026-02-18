@@ -7,6 +7,7 @@ val commonSettings = Def.settings(
     scalaBinaryVersion.value match {
       case "2.12" =>
         Seq(
+          "-release:8",
           "-language:higherKinds",
           "-Xsource:3",
         )
@@ -61,7 +62,7 @@ val `scalafix-check` = projectMatrix
   .in(file("scalafix-check"))
   .enablePlugins(SbtPlugin)
   .jvmPlatform(
-    Seq("2.12.20", "3.7.4")
+    Seq("2.12.20", "3.8.1")
   )
   .settings(
     commonSettings,
@@ -78,7 +79,7 @@ val `scalafix-check` = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-RC8"
+          "2.0.0-RC9"
       }
     },
   )
