@@ -61,6 +61,7 @@ publish / skip := true
 val `scalafix-check` = projectMatrix
   .in(file("scalafix-check"))
   .enablePlugins(SbtPlugin)
+  .defaultAxes(VirtualAxis.jvm)
   .jvmPlatform(
     Seq("2.12.20", "3.8.2")
   )
