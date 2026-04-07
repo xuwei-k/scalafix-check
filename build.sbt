@@ -80,7 +80,7 @@ val `scalafix-check` = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-RC10"
+          "2.0.0-RC11"
       }
     },
   )
