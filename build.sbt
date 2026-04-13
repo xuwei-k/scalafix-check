@@ -1,5 +1,7 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations.*
 
+def sbt2 = "2.0.0-RC12"
+
 val commonSettings = Def.settings(
   organization := "com.github.xuwei-k",
   publishTo := (if (isSnapshot.value) None else localStaging.value),
@@ -63,7 +65,7 @@ val `scalafix-check` = projectMatrix
   .enablePlugins(SbtPlugin)
   .defaultAxes(VirtualAxis.jvm)
   .jvmPlatform(
-    Seq("2.12.20", "3.8.2")
+    Seq("2.12.20", scala_version_from_sbt_version.ScalaVersionFromSbtVersion(sbt2))
   )
   .settings(
     commonSettings,
@@ -80,7 +82,7 @@ val `scalafix-check` = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-RC12"
+          sbt2
       }
     },
   )
