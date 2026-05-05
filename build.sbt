@@ -1,5 +1,6 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations.*
 
+def sbt1 = "1.12.11"
 def sbt2 = "2.0.0-RC12"
 
 val commonSettings = Def.settings(
@@ -42,30 +43,32 @@ val commonSettings = Def.settings(
   ),
 )
 
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepCommandAndRemaining("publishSigned"),
-  releaseStepCommandAndRemaining("sonaRelease"),
-  setNextVersion,
-  commitNextVersion,
-  pushChanges
+val root = rootProject.autoAggregate.settings(
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runClean,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    releaseStepCommandAndRemaining("publishSigned"),
+    releaseStepCommandAndRemaining("sonaRelease"),
+    setNextVersion,
+    commitNextVersion,
+    pushChanges
+  ),
+  commonSettings,
+  publish / skip := true
 )
-
-commonSettings
-
-publish / skip := true
 
 val `scalafix-check` = projectMatrix
   .in(file("scalafix-check"))
   .enablePlugins(SbtPlugin)
   .defaultAxes(VirtualAxis.jvm)
   .jvmPlatform(
-    Seq("2.12.20", scala_version_from_sbt_version.ScalaVersionFromSbtVersion(sbt2))
+    Seq(sbt1, sbt2).map(
+      scala_version_from_sbt_version.ScalaVersionFromSbtVersion.apply
+    )
   )
   .settings(
     commonSettings,
@@ -80,7 +83,7 @@ val `scalafix-check` = projectMatrix
     pluginCrossBuild / sbtVersion := {
       scalaBinaryVersion.value match {
         case "2.12" =>
-          sbtVersion.value
+          sbt1
         case _ =>
           sbt2
       }
