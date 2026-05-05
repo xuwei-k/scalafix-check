@@ -13,7 +13,7 @@ addSbtPlugin("com.github.sbt" % "sbt-release" % "1.4.0")
 Compile / sources ++= {
   // dogfooding
   Seq("scala", "scala-2").flatMap { dir =>
-    val xs = ((baseDirectory.value.getParentFile / "scalafix-check/src/main" / dir) ** "*.scala").get
+    val xs = ((baseDirectory.value.getParentFile / "scalafix-check/src/main" / dir) ** "*.scala").get()
     assert(xs.nonEmpty)
     xs
   }
