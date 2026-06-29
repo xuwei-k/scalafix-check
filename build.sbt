@@ -1,7 +1,7 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations.*
 
 def sbt1 = "1.12.11"
-def sbt2 = "2.0.0"
+def sbt2 = "2.0.1"
 
 val commonSettings = Def.settings(
   organization := "com.github.xuwei-k",
