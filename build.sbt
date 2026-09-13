@@ -41,9 +41,9 @@ val commonSettings = Def.settings(
   ),
   description := "additional scalafix tasks",
   organization := "com.github.xuwei-k",
-  homepage := Some(url("https://github.com/xuwei-k/scalafix-check")),
+  homepage := Some(uri("https://github.com/xuwei-k/scalafix-check")),
   licenses := List(
-    "MIT License" -> url("https://opensource.org/licenses/mit-license")
+    "MIT License" -> uri("https://opensource.org/licenses/mit-license")
   ),
 )
 
